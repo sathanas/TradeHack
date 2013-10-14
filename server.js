@@ -36,6 +36,24 @@ var data = {
 	'test': 'test'
 };
 
+function displayTime() {
+    var str = "";
+
+    var currentTime = new Date()
+    var hours = currentTime.getHours()
+    var minutes = currentTime.getMinutes()
+    var seconds = currentTime.getSeconds()
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    str += hours + ":" + minutes + ":" + seconds + " ";
+    return str;
+}
+
 //Queryfunction
 var query = function(query, callback){
 	var result;
@@ -48,15 +66,20 @@ var query = function(query, callback){
 	});
 };
 
+//Cron job
+new cronJob('* * * * * *', function(){
+	var data = {
+		time: displayTime(),
+		users: [
+			{'userid': 1,'username': 'na'}
+		]
+	};
+	io.sockets.emit('turn', data);
+}, null, true, "Sweden/Karlshamn");
+
 io.sockets.on('connection', function(socket){
 	console.log('new user connected');
 	socket.broadcast.emit('newuser');
-
-
-	//Cron job
-	new cronJob('*/2 * * * *', function(){
-		socket.broadcast.emit('turn');
-	}, null, true, "Sweden/Karlshamn");
 
 	
 });
