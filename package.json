@@ -1,14 +1,19 @@
 {
   "name": "TradeHack",
-  "version": "0.0.1",
-  "description": "A trading game",
-  "main": "index.html",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
   "dependencies": {
-    "jquery": "~1.8.3"
+    "cron": "~1.0.1",
+    "express": "~3.4.0",
+    "mysql": "~2.0.0-alpha9",
+    "time": "~0.9.2",
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
