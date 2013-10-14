@@ -36,13 +36,6 @@ var data = {
 	'test': 'test'
 };
 
-
-//Cron job
-new cronJob('* * * * *', function(){
-    console.log('You will see this message every second');
-}, null, true, "Sweden/Karlshamn");
-
-
 //Queryfunction
 var query = function(query, callback){
 	var result;
@@ -58,6 +51,14 @@ var query = function(query, callback){
 io.sockets.on('connection', function(socket){
 	console.log('new user connected');
 	socket.broadcast.emit('newuser');
+
+
+	//Cron job
+	new cronJob('*/2 * * * *', function(){
+		socket.broadcast.emit('turn');
+	}, null, true, "Sweden/Karlshamn");
+
+	
 });
 
 app.get('/', function(req, res){
