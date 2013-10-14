@@ -7,7 +7,7 @@ require.config( {
   },
 	paths: {
 		jquery: "scripts/core/jquery",
-    socketio: 'socket.io/socket.io'
+    socketio: 'http://194.47.142.170:3000/socket.io/socket.io'
 	}
 });
 
