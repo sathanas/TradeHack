@@ -11,6 +11,13 @@ app.all('/*', function(req, res, next) {
   next();
 });
 
+app.configure(function(){
+	app.use('/', express.static(__dirname + '/'));
+    app.use('/scripts', express.static(__dirname + '/scripts'));
+    app.use('/scripts/core', express.static(__dirname + '/scripts/core'));
+    //app.use('/socket.io', express.static(__dirname + '/'));
+});
+
 var server = http.createServer(app);
 var io = socketio.listen(server);
 
@@ -49,11 +56,12 @@ var query = function(query, callback){
 };
 
 io.sockets.on('connection', function(socket){
+	console.log('new user connected');
 	socket.broadcast.emit('newuser');
 });
 
 app.get('/', function(req, res){
-  res.send('Hello World');
+  res.sendfile(__dirname + '/index.html');
 });
 
 //All products
@@ -85,6 +93,6 @@ app.post('/api/products', function(req, res){
 
 });
 
-app.listen(3000);
+server.listen(3000);
 console.log('Listening on port 3000');
 //connection.end();
